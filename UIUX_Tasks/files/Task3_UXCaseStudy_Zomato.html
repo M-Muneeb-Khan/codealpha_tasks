@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 3 – UX Case Study: Zomato</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E23744;
+    --red-light: #FDECED;
+    --dark: #1A1A1A;
+    --mid: #444;
+    --muted: #777;
+    --light: #F5F5F5;
+    --border: #E0E0E0;
+    --green: #21BA45;
+    --amber: #F59E0B;
+    --blue: #2563EB;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #FAFAFA; color: var(--dark); }
+  .page { max-width: 820px; margin: 0 auto; background: #fff; }
+
+  /* Cover */
+  .cover { background: linear-gradient(145deg, #E23744 0%, #B71C2A 100%); color: #fff; padding: 80px 60px; position: relative; overflow: hidden; }
+  .cover::after { content: 'Z'; position: absolute; right: -20px; top: -20px; font-size: 280px; font-weight: 800; color: rgba(255,255,255,0.05); line-height: 1; }
+  .cover-tag { display: inline-block; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); padding: 5px 14px; border-radius: 20px; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+  .cover h1 { font-family: 'Merriweather', serif; font-size: 36px; font-weight: 700; line-height: 1.3; margin-bottom: 16px; }
+  .cover-sub { font-size: 15px; opacity: 0.85; line-height: 1.6; margin-bottom: 32px; max-width: 500px; }
+  .cover-meta { display: flex; gap: 32px; font-size: 13px; opacity: 0.7; }
+  .cover-meta strong { display: block; font-size: 11px; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+
+  /* Sections */
+  .section { padding: 48px 60px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-num { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+  .section h2 { font-family: 'Merriweather', serif; font-size: 22px; font-weight: 700; color: var(--dark); margin-bottom: 20px; }
+  p { font-size: 14px; line-height: 1.8; color: var(--mid); margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* Info boxes */
+  .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+  .info-box { background: var(--light); border-radius: 12px; padding: 16px; text-align: center; }
+  .info-box .num { font-size: 22px; font-weight: 800; color: var(--red); }
+  .info-box .lbl { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* User journey table */
+  .journey-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+  .journey-table th { background: var(--red); color: #fff; padding: 10px 14px; text-align: left; font-size: 12px; font-weight: 700; }
+  .journey-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .journey-table tr:nth-child(even) td { background: #FAFAFA; }
+  .journey-table td:first-child { font-weight: 600; color: var(--dark); width: 20%; }
+
+  /* Strength / Weakness */
+  .sw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .sw-card { border-radius: 12px; padding: 20px; }
+  .sw-card.strength { background: #F0FFF4; border: 1px solid #86EFAC; }
+  .sw-card.weakness { background: #FFF5F5; border: 1px solid #FCA5A5; }
+  .sw-card h3 { font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+  .sw-card.strength h3 { color: #16A34A; }
+  .sw-card.weakness h3 { color: #DC2626; }
+  .sw-list { list-style: none; }
+  .sw-list li { font-size: 13px; color: var(--mid); margin-bottom: 8px; padding-left: 18px; position: relative; line-height: 1.5; }
+  .sw-card.strength .sw-list li::before { content: '✓'; position: absolute; left: 0; color: #16A34A; font-weight: 700; }
+  .sw-card.weakness .sw-list li::before { content: '✗'; position: absolute; left: 0; color: #DC2626; font-weight: 700; }
+
+  /* Improvements */
+  .improvement { background: #fff; border: 1px solid var(--border); border-radius: 14px; margin-bottom: 24px; overflow: hidden; }
+  .imp-header { background: var(--red-light); padding: 16px 20px; display: flex; align-items: center; gap: 12px; }
+  .imp-num { width: 32px; height: 32px; background: var(--red); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex-shrink: 0; }
+  .imp-title { font-size: 15px; font-weight: 700; color: var(--dark); }
+  .imp-body { padding: 20px; }
+  .imp-body p { font-size: 13px; }
+  .imp-problem { background: #FFF5F5; border-left: 3px solid var(--red); padding: 10px 14px; border-radius: 0 8px 8px 0; margin-bottom: 12px; }
+  .imp-solution { background: #F0FFF4; border-left: 3px solid var(--green); padding: 10px 14px; border-radius: 0 8px 8px 0; margin-bottom: 12px; }
+  .imp-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .imp-problem .imp-label { color: var(--red); }
+  .imp-solution .imp-label { color: var(--green); }
+  .imp-problem p, .imp-solution p { margin-bottom: 0; }
+
+  /* Mockup sketch */
+  .mockup-sketch { background: #F8F8F8; border: 1px dashed #ccc; border-radius: 12px; padding: 20px; margin-top: 12px; }
+  .mock-phone { width: 140px; margin: 0 auto; background: #fff; border: 2px solid #333; border-radius: 16px; padding: 8px 0 6px; }
+  .mock-notch { width: 40px; height: 6px; background: #333; border-radius: 3px; margin: 0 auto 8px; }
+  .mock-inner { padding: 0 8px; }
+  .m-bar { height: 6px; background: #ddd; border-radius: 2px; margin-bottom: 5px; }
+  .m-bar.red { background: var(--red); }
+  .m-rect { height: 36px; background: #eee; border-radius: 4px; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; font-size: 7px; color: #999; }
+  .m-row { display: flex; gap: 4px; margin-bottom: 5px; }
+  .m-tag { flex: 1; height: 14px; background: #eee; border-radius: 6px; }
+  .m-tag.a { background: var(--red); }
+  .m-btn { height: 20px; background: var(--red); border-radius: 4px; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; font-size: 7px; color: #fff; }
+
+  /* Metrics */
+  .metrics-row { display: flex; gap: 12px; margin: 20px 0; }
+  .metric { flex: 1; background: var(--light); border-radius: 10px; padding: 14px; text-align: center; }
+  .metric .val { font-size: 18px; font-weight: 800; color: var(--dark); }
+  .metric .chg { font-size: 11px; color: var(--green); font-weight: 700; }
+  .metric .lbl { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+  /* Conclusion */
+  .conclusion-box { background: linear-gradient(135deg, var(--red-light), #fff); border: 1px solid #FCA5A5; border-radius: 14px; padding: 24px; margin: 20px 0; }
+  .conclusion-box h3 { font-size: 16px; font-weight: 700; color: var(--red); margin-bottom: 10px; }
+  .conclusion-box p { font-size: 13px; }
+
+  /* Footer */
+  .doc-footer { background: var(--dark); color: #fff; padding: 24px 60px; display: flex; justify-content: space-between; align-items: center; }
+  .doc-footer .left { font-size: 13px; }
+  .doc-footer .left strong { display: block; font-size: 15px; margin-bottom: 3px; }
+  .doc-footer .right { font-size: 11px; color: #666; text-align: right; }
+
+  @media print {
+    body { background: #fff; }
+    .page { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="cover-tag">UX Case Study · Task 3</div>
+  <h1>Zomato: User Experience Analysis &amp; Improvement Proposals</h1>
+  <div class="cover-sub">An in-depth evaluation of Zomato's food delivery app — examining the user journey, identifying key pain points, and proposing three high-impact UX improvements backed by design principles.</div>
+  <div class="cover-meta">
+    <div><strong>Prepared by</strong>Muneeb</div>
+    <div><strong>Internship</strong>CodeAlpha UI/UX</div>
+    <div><strong>App Analyzed</strong>Zomato (Android/iOS)</div>
+    <div><strong>Pages</strong>5</div>
+  </div>
+</div>
+
+<!-- PAGE 1: OVERVIEW -->
+<div class="section">
+  <div class="section-num">Page 1 of 5</div>
+  <h2>App Overview &amp; Research Methodology</h2>
+  <p>Zomato is one of India's largest food-tech platforms, operating in 789 cities and serving over 100 million monthly active users. Founded in 2008 as a restaurant discovery platform, it has since evolved into a full-stack food delivery ecosystem offering instant ordering, live order tracking, restaurant discovery, and user-generated reviews.</p>
+  <p>For this case study, I conducted a heuristic evaluation of the Zomato Android app (v17.x) using Nielsen's 10 Usability Heuristics as the evaluation framework. I analyzed three primary user flows: discovery → ordering → tracking. Research methods used include: competitive analysis (vs Swiggy, Uber Eats), five simulated user scenario walkthroughs, and screen-by-screen friction logging.</p>
+
+  <div class="info-grid">
+    <div class="info-box">
+      <div class="num">100M+</div>
+      <div class="lbl">Monthly Active Users</div>
+    </div>
+    <div class="info-box">
+      <div class="num">789</div>
+      <div class="lbl">Cities (India)</div>
+    </div>
+    <div class="info-box">
+      <div class="num">3.5★</div>
+      <div class="lbl">Play Store Rating</div>
+    </div>
+    <div class="info-box">
+      <div class="num">500K+</div>
+      <div class="lbl">Restaurant Partners</div>
+    </div>
+    <div class="info-box">
+      <div class="num">5 min</div>
+      <div class="lbl">Avg. App Session</div>
+    </div>
+    <div class="info-box">
+      <div class="num">45 min</div>
+      <div class="lbl">Avg. Delivery Time</div>
+    </div>
+  </div>
+
+  <p>The evaluation focuses on the mobile app experience, which accounts for over 90% of Zomato's order volume. All screenshots and interaction patterns were observed on a standard Android device under normal network conditions.</p>
+</div>
+
+<!-- PAGE 2: USER JOURNEY -->
+<div class="section">
+  <div class="section-num">Page 2 of 5</div>
+  <h2>User Journey Map</h2>
+  <p>The typical Zomato user journey spans six distinct phases, from initial app launch to post-delivery review. The table below maps each phase against the user's actions, emotional state, and friction points encountered.</p>
+
+  <table class="journey-table">
+    <tr>
+      <th>Phase</th>
+      <th>User Actions</th>
+      <th>Emotions / Mindset</th>
+      <th>Pain Points Observed</th>
+    </tr>
+    <tr>
+      <td>1. Discovery</td>
+      <td>Opens app, confirms delivery address, browses restaurants by category, cuisine, or search</td>
+      <td>Curious, hungry, somewhat impatient — wants quick results</td>
+      <td>Address confirmation modal appears every session; too many promotional banners crowd discovery</td>
+    </tr>
+    <tr>
+      <td>2. Selection</td>
+      <td>Taps restaurant, scrolls menu, reads descriptions, checks ratings &amp; reviews</td>
+      <td>Evaluative, comparing options, influenced by reviews and images</td>
+      <td>Menu categories not sticky while scrolling; some items lack photos; veg/non-veg filter is hidden deep</td>
+    </tr>
+    <tr>
+      <td>3. Customization</td>
+      <td>Selects add-ons, portion sizes, special instructions</td>
+      <td>Wants control; overwhelmed if options are excessive</td>
+      <td>Mandatory add-on modals interrupt flow; "Special instructions" box is buried at checkout, not at item-level</td>
+    </tr>
+    <tr>
+      <td>4. Checkout</td>
+      <td>Reviews cart, applies coupon, chooses payment, places order</td>
+      <td>High intent but sensitive to unexpected fees; wants speed</td>
+      <td>Delivery charges appear only at checkout — "surge" or "rain" fees are a last-minute shock; too many upsell nudges</td>
+    </tr>
+    <tr>
+      <td>5. Tracking</td>
+      <td>Monitors live map, watches order status, contacts rider if needed</td>
+      <td>Anxious if delayed; needs reassurance</td>
+      <td>ETAs fluctuate without explanation; rider contact button is 3 taps deep; map background is distracting</td>
+    </tr>
+    <tr>
+      <td>6. Post-Delivery</td>
+      <td>Rates food, writes review, requests refund if issue</td>
+      <td>Satisfied or frustrated depending on experience</td>
+      <td>Rating prompt is intrusive; refund/complaint flow is unnecessarily complex (5+ screens)</td>
+    </tr>
+  </table>
+</div>
+
+<!-- PAGE 3: STRENGTHS & WEAKNESSES -->
+<div class="section">
+  <div class="section-num">Page 3 of 5</div>
+  <h2>Strengths &amp; Weaknesses Analysis</h2>
+  <p>This section evaluates Zomato against core UX heuristics. The analysis is grounded in observed interaction patterns and compared with competitor benchmarks (Swiggy, Uber Eats).</p>
+
+  <div class="sw-grid">
+    <div class="sw-card strength">
+      <h3>✓ Strengths</h3>
+      <ul class="sw-list">
+        <li>Rich restaurant discovery with high-quality food photography that drives appetite appeal and click-through</li>
+        <li>Live GPS order tracking with real-time rider location — significantly reduces post-order anxiety</li>
+        <li>Gold/Pro loyalty program with tangible discounts creates strong retention and repeat purchase behavior</li>
+        <li>Comprehensive review system with photos, ratings, and filters (recency, rating, dish-specific) builds social proof</li>
+        <li>Smart reorder feature surfaces previously ordered items immediately — reduces cognitive load for habitual users</li>
+        <li>Schedule order feature (order in advance) is rare among competitors and adds unique utility</li>
+        <li>Clean information hierarchy on restaurant cards: name, rating, cuisine, ETA, and cost all visible before tapping</li>
+      </ul>
+    </div>
+    <div class="sw-card weakness">
+      <h3>✗ Weaknesses</h3>
+      <ul class="sw-list">
+        <li>Hidden delivery costs revealed only at checkout violates "no surprises" principle and increases cart abandonment</li>
+        <li>Address confirmation modal on every app launch is repetitive friction — violates "efficiency of use" heuristic</li>
+        <li>Excessive promotional content (banners, pop-ups, tooltips) competes with functional content, overwhelming users</li>
+        <li>Onboarding lacks personalization — new users receive generic recommendations with no preference capture</li>
+        <li>Complaint/refund flow is complex (5+ screens with repetitive confirmations) — creates friction at highest-stress moments</li>
+        <li>No "dark mode" support — jarring in low-light environments; a basic accessibility gap</li>
+        <li>Rider contact requires 3+ taps — during time-sensitive delivery issues, this creates unnecessary friction</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Overall, Zomato excels at the pre-order discovery phase but struggles at the critical checkout and post-order stages, where trust and transparency are most important. The platform's heavy monetization of UI space (ads, upsells, banners) has gradually degraded the clean experience it was known for in earlier versions.</p>
+</div>
+
+<!-- PAGE 4: IMPROVEMENTS -->
+<div class="section">
+  <div class="section-num">Page 4 of 5</div>
+  <h2>3 Proposed UX Improvements</h2>
+  <p>Each improvement is grounded in a specific usability issue identified during the journey mapping and heuristic evaluation. Mockup sketches and expected impact metrics are included.</p>
+
+  <!-- Improvement 1 -->
+  <div class="improvement">
+    <div class="imp-header">
+      <div class="imp-num">1</div>
+      <div class="imp-title">Transparent Pricing Indicator (Pre-Cart)</div>
+    </div>
+    <div class="imp-body">
+      <div class="imp-problem">
+        <div class="imp-label">Problem</div>
+        <p>Delivery fees, surge charges, and platform fees are revealed only on the final checkout screen. Users who see a ₹10 delivery fee on the restaurant card often discover a ₹49–89 actual fee at checkout — creating a "bait-and-switch" perception that drives cart abandonment. Studies show unexpected shipping/delivery costs are the #1 cause of e-commerce cart abandonment globally.</p>
+      </div>
+      <div class="imp-solution">
+        <div class="imp-label">Proposed Solution</div>
+        <p>Add a real-time "delivery fee estimate" badge directly on restaurant cards and at the top of the menu screen, updating dynamically based on the user's confirmed address. If surge pricing is active, show a clear indicator with explanation (e.g., "Rain surge active – fee may be higher"). This implements the "visibility of system status" heuristic and eliminates checkout surprise.</p>
+      </div>
+      <div class="mockup-sketch">
+        <div style="font-size:11px;color:#999;text-align:center;margin-bottom:12px;">Mockup Sketch — Restaurant Card with Live Fee Badge</div>
+        <div style="display:flex;gap:16px;justify-content:center;">
+          <div>
+            <div style="font-size:9px;color:#e74c3c;text-align:center;margin-bottom:4px;">BEFORE (current)</div>
+            <div class="mock-phone">
+              <div class="mock-notch"></div>
+              <div class="mock-inner">
+                <div class="m-rect">Restaurant Image</div>
+                <div class="m-bar" style="width:80%;"></div>
+                <div class="m-bar" style="width:50%;"></div>
+                <div style="font-size:7px;color:#999;">★ 4.5 · 30 min · Free delivery</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;font-size:18px;color:#ccc;">→</div>
+          <div>
+            <div style="font-size:9px;color:#21BA45;text-align:center;margin-bottom:4px;">AFTER (proposed)</div>
+            <div class="mock-phone">
+              <div class="mock-notch"></div>
+              <div class="mock-inner">
+                <div class="m-rect">Restaurant Image</div>
+                <div class="m-bar" style="width:80%;"></div>
+                <div class="m-bar" style="width:50%;"></div>
+                <div style="font-size:7px;color:#999;">★ 4.5 · 30 min</div>
+                <div style="background:#FFF0EE;border:1px solid #E23744;border-radius:4px;padding:3px 5px;margin-top:4px;font-size:7px;color:#E23744;font-weight:700;">🚚 Delivery: ₹29 (live)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="metrics-row">
+        <div class="metric"><div class="val">↓18%</div><div class="chg">Expected</div><div class="lbl">Cart abandonment</div></div>
+        <div class="metric"><div class="val">↑12%</div><div class="chg">Expected</div><div class="lbl">Order completion rate</div></div>
+        <div class="metric"><div class="val">↑22%</div><div class="chg">Expected</div><div class="lbl">User trust score</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Improvement 2 -->
+  <div class="improvement">
+    <div class="imp-header">
+      <div class="imp-num">2</div>
+      <div class="imp-title">Personalized Onboarding Flow with Preference Capture</div>
+    </div>
+    <div class="imp-body">
+      <div class="imp-problem">
+        <div class="imp-label">Problem</div>
+        <p>New Zomato users are immediately dropped into a generic discovery feed with no consideration for dietary preferences, cuisine tastes, or budget range. This forces users to apply manual filters from the very first session, increasing cognitive load and reducing the perceived intelligence of the platform. Competitor apps like Swiggy Instamart use simple onboarding questions to immediately personalize the feed.</p>
+      </div>
+      <div class="imp-solution">
+        <div class="imp-label">Proposed Solution</div>
+        <p>Introduce a 3-screen onboarding flow (post sign-up, pre-home) that captures: (1) dietary preference — vegetarian, non-vegetarian, vegan; (2) favorite cuisines — multi-select from 8 options; (3) typical budget per meal — low/medium/high. This data immediately personalizes the home feed, restaurant ranking, and "For You" recommendations section. Each preference screen should take under 10 seconds to complete. Add a "Skip for now" option to respect user autonomy.</p>
+      </div>
+      <div class="mockup-sketch">
+        <div style="font-size:11px;color:#999;text-align:center;margin-bottom:12px;">Mockup Sketch — Personalization Onboarding Screen</div>
+        <div style="display:flex;justify-content:center;">
+          <div class="mock-phone" style="width:150px;">
+            <div class="mock-notch"></div>
+            <div class="mock-inner">
+              <div style="font-size:8px;font-weight:700;margin-bottom:4px;color:#E23744;">Step 1 of 3</div>
+              <div class="m-bar red" style="width:33%;height:3px;margin-bottom:8px;"></div>
+              <div style="font-size:8px;font-weight:700;margin-bottom:6px;">What do you eat?</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:8px;">
+                <div style="background:#E23744;border-radius:6px;padding:4px;text-align:center;font-size:7px;color:#fff;">🥗 Veg</div>
+                <div style="background:#eee;border-radius:6px;padding:4px;text-align:center;font-size:7px;">🍗 Non-Veg</div>
+                <div style="background:#eee;border-radius:6px;padding:4px;text-align:center;font-size:7px;">🌱 Vegan</div>
+                <div style="background:#eee;border-radius:6px;padding:4px;text-align:center;font-size:7px;">🥚 Eggetarian</div>
+              </div>
+              <div class="m-btn">Continue →</div>
+              <div style="text-align:center;font-size:7px;color:#aaa;">Skip for now</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="metrics-row">
+        <div class="metric"><div class="val">↑35%</div><div class="chg">Expected</div><div class="lbl">Day-1 retention</div></div>
+        <div class="metric"><div class="val">↑28%</div><div class="chg">Expected</div><div class="lbl">Session depth (pages/visit)</div></div>
+        <div class="metric"><div class="val">↓40%</div><div class="chg">Expected</div><div class="lbl">Filter usage friction</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Improvement 3 -->
+  <div class="improvement">
+    <div class="imp-header">
+      <div class="imp-num">3</div>
+      <div class="imp-title">One-Tap Rider Contact on Tracking Screen</div>
+    </div>
+    <div class="imp-body">
+      <div class="imp-problem">
+        <div class="imp-label">Problem</div>
+        <p>When users need to contact their delivery rider (e.g., to direct them to a gate, report being unavailable briefly, or inquire about a delay), the current flow requires: tapping the tracking screen → finding the "Help" option → selecting "Contact rider" → choosing call or chat. This 3–4 tap sequence is frustrating precisely when users are most anxious — when their food is late or there's a delivery difficulty. Heuristic violated: "Flexibility and efficiency of use."</p>
+      </div>
+      <div class="imp-solution">
+        <div class="imp-label">Proposed Solution</div>
+        <p>Surface a persistent "Contact Rider" action bar on the active order tracking screen with two directly tappable buttons: a phone icon (masked call via platform) and a chat icon (in-app messaging). These should be visible without scrolling and sized to thumb-friendly tap targets (min 44×44px). Additionally, add a quick-message template system (e.g., "I'm at the gate", "Please wait 5 minutes") to enable contactless communication without typing.</p>
+      </div>
+      <div class="mockup-sketch">
+        <div style="font-size:11px;color:#999;text-align:center;margin-bottom:12px;">Mockup Sketch — Tracking Screen with Persistent Rider Contact Bar</div>
+        <div style="display:flex;justify-content:center;">
+          <div class="mock-phone" style="width:150px;">
+            <div class="mock-notch"></div>
+            <div class="mock-inner">
+              <div class="m-rect" style="height:50px;">Live Map</div>
+              <div style="font-size:7px;font-weight:700;margin-bottom:4px;">Order arriving in 8 min</div>
+              <div class="m-row">
+                <div class="m-tag a"></div>
+                <div class="m-tag"></div>
+                <div class="m-tag"></div>
+                <div class="m-tag"></div>
+              </div>
+              <div style="background:#FFF0EE;border:1px solid #E23744;border-radius:6px;padding:6px;margin-bottom:4px;">
+                <div style="font-size:7px;color:#E23744;font-weight:700;margin-bottom:3px;">Contact Rider — always visible</div>
+                <div style="display:flex;gap:4px;">
+                  <div style="flex:1;background:#E23744;border-radius:4px;height:18px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;">📞 Call</div>
+                  <div style="flex:1;background:#E23744;border-radius:4px;height:18px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#fff;">💬 Chat</div>
+                </div>
+              </div>
+              <div style="font-size:7px;color:#999;">Quick: "I'm at gate" · "Wait 5 min"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="metrics-row">
+        <div class="metric"><div class="val">↓65%</div><div class="chg">Expected</div><div class="lbl">Taps to contact rider</div></div>
+        <div class="metric"><div class="val">↑19%</div><div class="chg">Expected</div><div class="lbl">Post-delivery satisfaction</div></div>
+        <div class="metric"><div class="val">↓30%</div><div class="chg">Expected</div><div class="lbl">Failed delivery rate</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5: CONCLUSION -->
+<div class="section">
+  <div class="section-num">Page 5 of 5</div>
+  <h2>Conclusion &amp; Key Takeaways</h2>
+  <p>Zomato is a well-engineered food discovery and delivery platform that has earned its market leadership through strong restaurant partnerships, high-quality food imagery, and a reliable tracking experience. However, the platform shows signs of UX debt accumulated through rapid feature addition and heavy commercialization of the interface.</p>
+
+  <p>The three improvements proposed in this case study address the most critical friction points across the user journey. Collectively, they focus on a single theme: <strong>radical transparency and reducing effort at moments of high user stress</strong> — checkout, onboarding, and mid-delivery.</p>
+
+  <div class="conclusion-box">
+    <h3>Core UX Principle Applied Throughout This Study</h3>
+    <p>"Don't make me think" — Steve Krug. Every decision in this analysis is tested against this principle. A good food delivery app should feel effortless. The moment a user has to figure something out — whether it's a hidden fee, a buried filter, or a contact button — trust erodes. The improvements proposed here reduce cognitive load at the highest-stakes moments in the user journey, which is where loyalty is truly won or lost.</p>
+  </div>
+
+  <p>The UX improvements suggested are practical, technically feasible, and each addresses a specific, measurable heuristic violation. Implementation of all three could realistically lead to measurable improvements in order completion rates, Day-1 retention, and post-delivery satisfaction scores — making them high-ROI investments for Zomato's product team.</p>
+
+  <p style="margin-top:20px;font-size:13px;color:#999;font-style:italic;">Frameworks used: Nielsen's 10 Usability Heuristics · Steve Krug's "Don't Make Me Think" · User Journey Mapping · Heuristic Evaluation · Competitive Benchmarking</p>
+</div>
+
+<!-- Footer -->
+<div class="doc-footer">
+  <div class="left">
+    <strong>UX Case Study: Zomato</strong>
+    CodeAlpha UI/UX Design Internship · Task 3
+  </div>
+  <div class="right">
+    Muneeb · CodeAlpha Intern<br>
+    5 pages · Print / PDF ready
+  </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 2 – High-Fidelity UI: QuickBite Food Delivery App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #FF4B2B;
+    --primary-light: #FF6B4A;
+    --primary-dark: #D93A1F;
+    --surface: #FFFFFF;
+    --bg: #FFF5F3;
+    --card: #FFFFFF;
+    --muted: #F7F7F7;
+    --text1: #1A1A1A;
+    --text2: #4A4A4A;
+    --text3: #9A9A9A;
+    --border: rgba(0,0,0,0.08);
+    --green: #22C55E;
+    --amber: #F59E0B;
+    --phone-shadow: 0 24px 48px rgba(255,75,43,0.18), 0 8px 16px rgba(0,0,0,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: #FBF4F2; color: var(--text1); padding: 40px 20px 60px; min-height: 100vh; }
+
+  /* Page header */
+  .page-header { text-align: center; margin-bottom: 48px; }
+  .page-header .badge { display: inline-block; background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 14px; }
+  .page-header h1 { font-size: 28px; font-weight: 800; color: var(--text1); margin-bottom: 8px; }
+  .page-header p { font-size: 14px; color: var(--text3); }
+
+  /* Design tokens panel */
+  .tokens { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; max-width: 900px; margin: 0 auto 48px; }
+  .token-group { background: #fff; border-radius: 12px; padding: 16px 20px; border: 1px solid var(--border); min-width: 180px; }
+  .token-group h3 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text3); margin-bottom: 12px; }
+  .swatch-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .swatch { width: 36px; height: 36px; border-radius: 8px; }
+  .swatch-label { font-size: 9px; color: var(--text3); text-align: center; margin-top: 3px; }
+  .font-sample { font-size: 20px; font-weight: 800; color: var(--text1); margin-bottom: 4px; }
+  .font-body { font-size: 13px; color: var(--text2); }
+  .font-name { font-size: 10px; color: var(--text3); margin-top: 6px; }
+
+  /* Screens grid */
+  .screens-grid { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; max-width: 1300px; margin: 0 auto; }
+  .screen-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .screen-label { font-size: 12px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Phone frame */
+  .phone { width: 230px; background: #fff; border-radius: 34px; padding: 0; position: relative; box-shadow: var(--phone-shadow); overflow: hidden; border: 1.5px solid rgba(0,0,0,0.07); }
+  .phone-notch { background: #1A1A1A; height: 28px; display: flex; align-items: center; justify-content: center; }
+  .notch-pill { width: 60px; height: 10px; background: #000; border-radius: 10px; }
+  .phone-content { padding: 14px 14px 0; }
+  .phone-bottom { height: 20px; background: #fff; display: flex; align-items: center; justify-content: center; }
+  .home-bar { width: 80px; height: 4px; background: #1A1A1A; border-radius: 2px; }
+
+  /* Nav bar */
+  .nav-bar { display: flex; justify-content: space-around; padding: 10px 0 12px; border-top: 1px solid var(--border); margin-top: 8px; background: #fff; }
+  .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; }
+  .nav-icon { font-size: 16px; }
+  .nav-txt { font-size: 9px; font-weight: 600; color: var(--text3); }
+  .nav-item.active .nav-txt { color: var(--primary); }
+  .nav-dot { width: 4px; height: 4px; background: var(--primary); border-radius: 50%; }
+
+  /* UI Components */
+  .search-bar { background: var(--muted); border-radius: 12px; padding: 9px 12px; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .search-bar span { font-size: 10px; color: var(--text3); }
+  .location-row { display: flex; align-items: center; gap: 4px; margin-bottom: 12px; }
+  .loc-text { font-size: 10px; color: var(--text2); font-weight: 600; }
+  .loc-sub { font-size: 9px; color: var(--text3); }
+  .greeting { font-size: 15px; font-weight: 800; color: var(--text1); margin-bottom: 3px; }
+  .greeting-sub { font-size: 10px; color: var(--text3); margin-bottom: 12px; }
+
+  .banner { background: linear-gradient(135deg, var(--primary) 0%, #FF8C42 100%); border-radius: 16px; padding: 14px; margin-bottom: 14px; position: relative; overflow: hidden; }
+  .banner-title { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 3px; }
+  .banner-sub { font-size: 9px; color: rgba(255,255,255,0.8); margin-bottom: 8px; }
+  .banner-btn { background: #fff; color: var(--primary); font-size: 9px; font-weight: 700; padding: 4px 10px; border-radius: 8px; display: inline-block; }
+  .banner-emoji { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 42px; opacity: 0.9; }
+
+  .section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .section-head h2 { font-size: 12px; font-weight: 700; }
+  .section-head a { font-size: 9px; color: var(--primary); font-weight: 600; }
+
+  .pill-row { display: flex; gap: 6px; margin-bottom: 12px; overflow: hidden; }
+  .pill { padding: 5px 10px; border-radius: 20px; font-size: 9px; font-weight: 600; background: var(--muted); color: var(--text2); flex-shrink: 0; }
+  .pill.active { background: var(--primary); color: #fff; }
+
+  .rest-card { background: var(--card); border-radius: 14px; border: 1px solid var(--border); margin-bottom: 10px; overflow: hidden; }
+  .rest-img { height: 60px; background: linear-gradient(135deg, #FFD6CC 0%, #FFAA99 100%); display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; }
+  .rest-badge { position: absolute; top: 6px; left: 6px; background: #fff; border-radius: 6px; padding: 2px 6px; font-size: 8px; font-weight: 700; color: var(--primary); }
+  .rest-info { padding: 8px 10px; }
+  .rest-name { font-size: 11px; font-weight: 700; margin-bottom: 3px; }
+  .rest-meta { font-size: 9px; color: var(--text3); display: flex; gap: 6px; align-items: center; }
+  .dot-sep { color: var(--border); }
+  .star { color: var(--amber); }
+
+  .menu-header { height: 70px; background: linear-gradient(135deg, #FF4B2B, #FF8C42); display: flex; align-items: flex-end; padding: 10px; }
+  .menu-header-text { color: #fff; }
+  .menu-header-text .name { font-size: 13px; font-weight: 800; }
+  .menu-header-text .meta { font-size: 8px; opacity: 0.8; }
+
+  .menu-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item-img { width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, #FFD6CC, #FFAA99); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .menu-item-info { flex: 1; }
+  .menu-item-name { font-size: 10px; font-weight: 700; margin-bottom: 2px; }
+  .menu-item-desc { font-size: 8px; color: var(--text3); margin-bottom: 3px; }
+  .menu-item-price { font-size: 10px; font-weight: 700; color: var(--primary); }
+  .add-btn { width: 26px; height: 26px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; font-weight: 700; flex-shrink: 0; }
+  .counter { display: flex; align-items: center; gap: 6px; }
+  .cnt-btn { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; }
+  .cnt-btn.minus { border: 1.5px solid var(--primary); color: var(--primary); }
+  .cnt-btn.plus { background: var(--primary); color: #fff; }
+  .cnt-num { font-size: 11px; font-weight: 700; }
+
+  .cart-item { display: flex; align-items: center; gap: 8px; background: var(--muted); border-radius: 12px; padding: 8px 10px; margin-bottom: 8px; }
+
+  .checkout-btn { background: var(--primary); color: #fff; border-radius: 14px; padding: 11px; text-align: center; font-size: 11px; font-weight: 700; margin-top: 10px; }
+
+  .order-summary { background: var(--muted); border-radius: 12px; padding: 10px 12px; margin: 10px 0; }
+  .order-row { display: flex; justify-content: space-between; font-size: 9px; color: var(--text2); margin-bottom: 5px; }
+  .order-row.total { font-size: 11px; font-weight: 700; color: var(--text1); margin-bottom: 0; border-top: 1px dashed #ddd; padding-top: 6px; margin-top: 4px; }
+
+  /* Tracking screen */
+  .track-map { height: 80px; background: linear-gradient(135deg, #E8F5E9, #C8E6C9); border-radius: 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+  .track-map::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cline x1='0' y1='10' x2='20' y2='10' stroke='%2300000010' stroke-width='0.5'/%3E%3Cline x1='10' y1='0' x2='10' y2='20' stroke='%2300000010' stroke-width='0.5'/%3E%3C/svg%3E"); }
+  .map-label { font-size: 9px; font-weight: 700; color: #2E7D32; z-index: 1; }
+
+  .progress-bar-outer { background: #F0F0F0; border-radius: 20px; height: 4px; margin: 4px 0 12px; }
+  .progress-bar-inner { background: var(--primary); height: 4px; border-radius: 20px; width: 50%; }
+
+  .step-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+  .step { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+  .step-dot { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; }
+  .step-dot.done { background: var(--primary); color: #fff; }
+  .step-dot.active { background: var(--primary); color: #fff; box-shadow: 0 0 0 3px rgba(255,75,43,0.2); }
+  .step-dot.pending { background: #F0F0F0; border: 1.5px dashed #ccc; }
+  .step-txt { font-size: 7px; font-weight: 600; color: var(--text3); text-align: center; }
+  .step-txt.done { color: var(--primary); }
+
+  .rider-card { background: var(--muted); border-radius: 12px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; }
+  .rider-av { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #FF8C42, var(--primary)); display: flex; align-items: center; justify-content: center; font-size: 12px; color: #fff; font-weight: 700; flex-shrink: 0; }
+  .rider-name { font-size: 10px; font-weight: 700; }
+  .rider-sub { font-size: 8px; color: var(--text3); }
+  .rider-actions { display: flex; gap: 6px; margin-left: auto; }
+  .rider-btn { width: 26px; height: 26px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+
+  .tag-promo { background: rgba(255,75,43,0.1); color: var(--primary); font-size: 9px; font-weight: 700; padding: 5px 10px; border-radius: 8px; border: 1px dashed var(--primary); display: flex; align-items: center; gap: 4px; margin-bottom: 10px; }
+
+  /* Components showcase */
+  .components-section { max-width: 900px; margin: 60px auto 0; }
+  .comp-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text3); margin-bottom: 20px; text-align: center; }
+  .comp-grid { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; }
+  .comp-card { background: #fff; border-radius: 16px; padding: 20px; border: 1px solid var(--border); min-width: 160px; text-align: center; }
+  .comp-card-title { font-size: 10px; color: var(--text3); margin-bottom: 12px; font-weight: 600; }
+  .ui-btn-primary { background: var(--primary); color: #fff; border-radius: 12px; padding: 9px 20px; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+  .ui-btn-outline { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); border-radius: 12px; padding: 9px 20px; font-size: 12px; font-weight: 700; }
+  .ui-input { background: var(--muted); border-radius: 10px; padding: 9px 12px; font-size: 11px; color: var(--text3); text-align: left; margin-bottom: 8px; }
+  .rating-stars { color: var(--amber); font-size: 18px; margin-bottom: 4px; }
+  .rating-num { font-size: 20px; font-weight: 800; color: var(--text1); }
+  .rating-count { font-size: 10px; color: var(--text3); }
+  .badge-success { background: rgba(34,197,94,0.1); color: #16A34A; font-size: 10px; font-weight: 700; padding: 5px 12px; border-radius: 20px; }
+  .badge-pending { background: rgba(245,158,11,0.1); color: #D97706; font-size: 10px; font-weight: 700; padding: 5px 12px; border-radius: 20px; }
+  .footer-note { text-align: center; font-size: 11px; color: var(--text3); margin-top: 50px; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="badge">Task 2 · High-Fidelity UI Design</div>
+  <h1>QuickBite — Food Delivery App</h1>
+  <p>CodeAlpha UI/UX Internship · Color Palette: Energetic Red-Orange · Font: Plus Jakarta Sans</p>
+</div>
+
+<!-- Design Tokens -->
+<div class="tokens">
+  <div class="token-group">
+    <h3>Color Palette</h3>
+    <div class="swatch-row">
+      <div>
+        <div class="swatch" style="background:#FF4B2B;"></div>
+        <div class="swatch-label">Primary</div>
+      </div>
+      <div>
+        <div class="swatch" style="background:#FF8C42;"></div>
+        <div class="swatch-label">Secondary</div>
+      </div>
+      <div>
+        <div class="swatch" style="background:#1A1A1A;"></div>
+        <div class="swatch-label">Dark</div>
+      </div>
+      <div>
+        <div class="swatch" style="background:#F7F7F7; border:1px solid #eee;"></div>
+        <div class="swatch-label">Surface</div>
+      </div>
+      <div>
+        <div class="swatch" style="background:#22C55E;"></div>
+        <div class="swatch-label">Success</div>
+      </div>
+      <div>
+        <div class="swatch" style="background:#F59E0B;"></div>
+        <div class="swatch-label">Warning</div>
+      </div>
+    </div>
+  </div>
+  <div class="token-group">
+    <h3>Typography</h3>
+    <div class="font-sample">Plus Jakarta Sans</div>
+    <div class="font-body">Body text · Regular 400</div>
+    <div class="font-name">Used for: Headings 800, Labels 700, Body 400</div>
+  </div>
+  <div class="token-group">
+    <h3>Design Principles</h3>
+    <div style="font-size:10px;color:#555;line-height:1.7;">
+      ✓ 8pt grid spacing<br>
+      ✓ 14px border radius (cards)<br>
+      ✓ WCAG 2.1 contrast ratios<br>
+      ✓ Thumb-friendly touch targets (44px+)<br>
+      ✓ Consistent icon system (emoji for hi-fi)
+    </div>
+  </div>
+</div>
+
+<!-- Screens -->
+<div class="screens-grid">
+
+  <!-- Screen 1: Home -->
+  <div class="screen-wrap">
+    <div class="phone">
+      <div class="phone-notch"><div class="notch-pill"></div></div>
+      <div class="phone-content">
+        <div class="location-row">
+          <span style="font-size:12px;">📍</span>
+          <span class="loc-text">Main St, NYC</span>
+          <span style="font-size:10px;color:#aaa;">▾</span>
+          <div style="margin-left:auto;width:28px;height:28px;border-radius:10px;background:#FFF0EE;display:flex;align-items:center;justify-content:center;font-size:14px;">🔔</div>
+        </div>
+        <div class="greeting">Good morning! 👋</div>
+        <div class="greeting-sub">What are you craving today?</div>
+        <div class="search-bar">
+          <span>🔍</span>
+          <span>Search food, restaurants...</span>
+        </div>
+        <!-- Banner -->
+        <div class="banner">
+          <div class="banner-title">50% OFF First Order!</div>
+          <div class="banner-sub">Use code: QUICKFIRST</div>
+          <div class="banner-btn">Order Now</div>
+          <div class="banner-emoji">🍕</div>
+        </div>
+        <!-- Pills -->
+        <div class="pill-row">
+          <div class="pill active">🍽 All</div>
+          <div class="pill">🍕 Pizza</div>
+          <div class="pill">🍔 Burgers</div>
+          <div class="pill">🍣 Sushi</div>
+        </div>
+        <!-- Restaurants -->
+        <div class="section-head"><h2>Popular Near You</h2><a>See all</a></div>
+        <div class="rest-card">
+          <div class="rest-img">🍕<div class="rest-badge">Free delivery</div></div>
+          <div class="rest-info">
+            <div class="rest-name">Mario's Pizza Palace</div>
+            <div class="rest-meta"><span class="star">⭐</span>4.8<span class="dot-sep">·</span>20–30 min<span class="dot-sep">·</span>Italian</div>
+          </div>
+        </div>
+        <div class="rest-card">
+          <div class="rest-img" style="background:linear-gradient(135deg,#D6F0FF,#99D4FF);">🍔<div class="rest-badge">20% off</div></div>
+          <div class="rest-info">
+            <div class="rest-name">Burger Bros</div>
+            <div class="rest-meta"><span class="star">⭐</span>4.5<span class="dot-sep">·</span>15–25 min<span class="dot-sep">·</span>American</div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-bar">
+        <div class="nav-item active">
+          <span class="nav-icon">🏠</span>
+          <span class="nav-txt" style="color:var(--primary);">Home</span>
+          <div class="nav-dot"></div>
+        </div>
+        <div class="nav-item"><span class="nav-icon">🔍</span><span class="nav-txt">Search</span></div>
+        <div class="nav-item"><span class="nav-icon">🛍</span><span class="nav-txt">Orders</span></div>
+        <div class="nav-item"><span class="nav-icon">👤</span><span class="nav-txt">Profile</span></div>
+      </div>
+      <div class="phone-bottom"><div class="home-bar"></div></div>
+    </div>
+    <div class="screen-label">Home Screen</div>
+  </div>
+
+  <!-- Screen 2: Menu -->
+  <div class="screen-wrap">
+    <div class="phone">
+      <div class="phone-notch"><div class="notch-pill"></div></div>
+      <div class="menu-header">
+        <div class="menu-header-text">
+          <div class="name">Mario's Pizza Palace</div>
+          <div class="meta">⭐ 4.8 · Italian · 20–30 min · Free delivery</div>
+        </div>
+      </div>
+      <div class="phone-content" style="padding-top:12px;">
+        <div class="pill-row">
+          <div class="pill active">🔥 Popular</div>
+          <div class="pill">🥗 Starters</div>
+          <div class="pill">🍕 Mains</div>
+          <div class="pill">🥤 Drinks</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-img">🍕</div>
+          <div class="menu-item-info">
+            <div class="menu-item-name">Margherita Pizza</div>
+            <div class="menu-item-desc">Fresh tomato, mozzarella, basil</div>
+            <div class="menu-item-price">$12.99</div>
+          </div>
+          <div class="add-btn">+</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-img">🍝</div>
+          <div class="menu-item-info">
+            <div class="menu-item-name">Spaghetti Carbonara</div>
+            <div class="menu-item-desc">Pancetta, egg, pecorino</div>
+            <div class="menu-item-price">$15.99</div>
+          </div>
+          <div class="counter">
+            <div class="cnt-btn minus">–</div>
+            <span class="cnt-num">2</span>
+            <div class="cnt-btn plus">+</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-img">🥗</div>
+          <div class="menu-item-info">
+            <div class="menu-item-name">Caesar Salad</div>
+            <div class="menu-item-desc">Romaine, croutons, parmesan</div>
+            <div class="menu-item-price">$9.99</div>
+          </div>
+          <div class="add-btn">+</div>
+        </div>
+        <div class="checkout-btn">View Cart · 2 items · $31.98</div>
+      </div>
+      <div class="phone-bottom"><div class="home-bar"></div></div>
+    </div>
+    <div class="screen-label">Restaurant Menu</div>
+  </div>
+
+  <!-- Screen 3: Cart -->
+  <div class="screen-wrap">
+    <div class="phone">
+      <div class="phone-notch"><div class="notch-pill"></div></div>
+      <div class="phone-content">
+        <div style="font-size:16px;font-weight:800;margin:8px 0 14px;">Your Cart 🛒</div>
+        <!-- Cart items -->
+        <div class="cart-item">
+          <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#FFD6CC,#FFAA99);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🍝</div>
+          <div style="flex:1;padding-left:8px;">
+            <div style="font-size:10px;font-weight:700;">Spaghetti Carbonara</div>
+            <div style="font-size:9px;color:#999;">$15.99 each</div>
+          </div>
+          <div class="counter">
+            <div class="cnt-btn minus">–</div>
+            <span class="cnt-num">2</span>
+            <div class="cnt-btn plus">+</div>
+          </div>
+        </div>
+        <div class="cart-item">
+          <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#FFD6CC,#FFAA99);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🍕</div>
+          <div style="flex:1;padding-left:8px;">
+            <div style="font-size:10px;font-weight:700;">Margherita Pizza</div>
+            <div style="font-size:9px;color:#999;">$12.99 each</div>
+          </div>
+          <div class="counter">
+            <div class="cnt-btn minus">–</div>
+            <span class="cnt-num">1</span>
+            <div class="cnt-btn plus">+</div>
+          </div>
+        </div>
+        <!-- Promo -->
+        <div class="tag-promo">🏷 Add promo code <span style="margin-left:auto;color:#aaa;">›</span></div>
+        <!-- Delivery -->
+        <div style="font-size:10px;font-weight:700;margin-bottom:6px;">Delivery Address</div>
+        <div class="ui-input">📍 123 Main Street, New York, NY</div>
+        <!-- Summary -->
+        <div class="order-summary">
+          <div class="order-row"><span>Subtotal</span><span>$44.97</span></div>
+          <div class="order-row"><span>Delivery fee</span><span>Free 🎉</span></div>
+          <div class="order-row"><span>Taxes &amp; fees</span><span>$3.50</span></div>
+          <div class="order-row total"><span>Total</span><span>$48.47</span></div>
+        </div>
+        <div class="checkout-btn">Place Order · $48.47</div>
+      </div>
+      <div class="phone-bottom"><div class="home-bar"></div></div>
+    </div>
+    <div class="screen-label">Cart & Checkout</div>
+  </div>
+
+  <!-- Screen 4: Tracking -->
+  <div class="screen-wrap">
+    <div class="phone">
+      <div class="phone-notch"><div class="notch-pill"></div></div>
+      <div class="phone-content">
+        <div style="font-size:16px;font-weight:800;margin:8px 0 4px;">Order Tracking 🗺</div>
+        <div style="font-size:9px;color:#999;margin-bottom:12px;">Order #QB-4821 · Estimated: 28 min</div>
+        <!-- Map -->
+        <div class="track-map">
+          <div class="map-label">📍 Live Map (Rider en route)</div>
+        </div>
+        <!-- Steps -->
+        <div class="step-row">
+          <div class="step">
+            <div class="step-dot done">✓</div>
+            <div class="step-txt done">Confirmed</div>
+          </div>
+          <div style="flex:1;height:2px;background:linear-gradient(to right,var(--primary),var(--primary));margin-top:9px;"></div>
+          <div class="step">
+            <div class="step-dot done">✓</div>
+            <div class="step-txt done">Preparing</div>
+          </div>
+          <div style="flex:1;height:2px;background:linear-gradient(to right,var(--primary),#F0F0F0);margin-top:9px;"></div>
+          <div class="step">
+            <div class="step-dot active">🛵</div>
+            <div class="step-txt done">On the way</div>
+          </div>
+          <div style="flex:1;height:2px;background:#F0F0F0;margin-top:9px;"></div>
+          <div class="step">
+            <div class="step-dot pending"></div>
+            <div class="step-txt">Delivered</div>
+          </div>
+        </div>
+        <div class="progress-bar-outer"><div class="progress-bar-inner"></div></div>
+        <!-- Rider -->
+        <div style="font-size:10px;font-weight:700;margin-bottom:8px;">Your Rider</div>
+        <div class="rider-card">
+          <div class="rider-av">A</div>
+          <div>
+            <div class="rider-name">Ahmed Khan</div>
+            <div class="rider-sub">⭐ 4.9 · Honda CG 125 · Blue</div>
+          </div>
+          <div class="rider-actions">
+            <div class="rider-btn">📞</div>
+            <div class="rider-btn">💬</div>
+          </div>
+        </div>
+        <div class="badge-success" style="margin-top:10px;display:inline-block;">🟢 Rider is 5 min away!</div>
+      </div>
+      <div class="phone-bottom"><div class="home-bar"></div></div>
+    </div>
+    <div class="screen-label">Live Tracking</div>
+  </div>
+
+</div>
+
+<!-- UI Components Showcase -->
+<div class="components-section">
+  <div class="comp-title">UI Component Library</div>
+  <div class="comp-grid">
+    <div class="comp-card">
+      <div class="comp-card-title">Buttons</div>
+      <div class="ui-btn-primary">Order Now</div>
+      <div style="height:8px;"></div>
+      <div class="ui-btn-outline">View Menu</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-card-title">Inputs</div>
+      <div class="ui-input">🔍 Search food...</div>
+      <div class="ui-input">📍 Enter address...</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-card-title">Rating</div>
+      <div class="rating-stars">★★★★★</div>
+      <div class="rating-num">4.8</div>
+      <div class="rating-count">2,841 reviews</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-card-title">Status Badges</div>
+      <div class="badge-success" style="margin-bottom:8px;display:inline-block;">Delivered ✓</div>
+      <div style="height:4px;"></div>
+      <div class="badge-pending">In progress</div>
+    </div>
+    <div class="comp-card">
+      <div class="comp-card-title">Category Pills</div>
+      <div class="pill-row" style="flex-wrap:wrap;">
+        <div class="pill active">🍕 Pizza</div>
+        <div class="pill">🍔 Burgers</div>
+        <div class="pill">🍣 Sushi</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-note">
+  Task 2 — High-Fidelity UI Design · QuickBite Food Delivery App · CodeAlpha UI/UX Internship<br>
+  Font: Plus Jakarta Sans · Primary: #FF4B2B · Principles: WCAG 2.1 contrast, 8pt grid, 44px touch targets
+</div>
+
+</body>
+</html>

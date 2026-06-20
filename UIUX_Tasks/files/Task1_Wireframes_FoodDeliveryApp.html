@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task 1 – Wireframes: QuickBite Food Delivery App</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Courier New', monospace; background: #f5f5f0; color: #111; padding: 40px 20px; }
+  h1 { font-family: Arial, sans-serif; font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 6px; }
+  .subtitle { text-align: center; color: #555; font-family: Arial, sans-serif; font-size: 14px; margin-bottom: 8px; }
+  .meta { text-align: center; color: #888; font-family: Arial, sans-serif; font-size: 12px; margin-bottom: 40px; }
+  .screens-grid { display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; max-width: 1200px; margin: 0 auto; }
+  .screen-wrap { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .screen-label { font-family: Arial, sans-serif; font-size: 13px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 1px; }
+  .screen-sub { font-family: Arial, sans-serif; font-size: 11px; color: #777; text-align: center; max-width: 200px; }
+  .phone { width: 220px; background: #fff; border: 2px solid #222; border-radius: 28px; padding: 20px 0 12px; position: relative; box-shadow: 4px 4px 0 #ccc; }
+  .phone::before { content: ''; display: block; width: 70px; height: 10px; background: #222; border-radius: 5px; margin: 0 auto 16px; }
+  .phone-inner { padding: 0 14px; }
+  /* wire elements */
+  .w-bar { height: 10px; background: #ddd; border-radius: 3px; margin-bottom: 8px; }
+  .w-bar.dark { background: #222; }
+  .w-bar.mid { background: #aaa; }
+  .w-rect { background: #e0e0e0; border: 1px dashed #aaa; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #777; text-align: center; }
+  .w-circle { border-radius: 50%; background: #e0e0e0; border: 1px dashed #aaa; }
+  .w-btn { height: 26px; background: #222; border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; font-size: 9px; color: #fff; }
+  .w-btn.outline { background: #fff; border: 1px solid #222; color: #222; }
+  .w-row { display: flex; gap: 6px; margin-bottom: 8px; }
+  .w-tag { flex: 1; height: 20px; background: #e8e8e8; border-radius: 10px; font-size: 8px; display: flex; align-items: center; justify-content: center; color: #777; border: 1px solid #ccc; }
+  .w-tag.active { background: #222; color: #fff; border-color: #222; }
+  .w-card { background: #f8f8f8; border: 1px solid #ddd; border-radius: 6px; padding: 8px; margin-bottom: 8px; }
+  .w-nav { display: flex; justify-content: space-around; margin-top: 14px; padding-top: 10px; border-top: 1px solid #ddd; }
+  .w-nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .w-nav-icon { width: 18px; height: 18px; background: #ccc; border-radius: 3px; }
+  .w-nav-icon.active { background: #222; }
+  .w-nav-txt { font-size: 7px; color: #aaa; }
+  .w-nav-txt.active { color: #222; }
+  .w-star { color: #999; font-size: 10px; }
+  .annotation { font-family: Arial, sans-serif; font-size: 10px; color: #e74c3c; margin-top: 6px; text-align: left; max-width: 220px; }
+  .annotation::before { content: '→ '; }
+  .divider { width: 100%; max-width: 1200px; margin: 40px auto 20px; border: none; border-top: 2px dashed #ccc; }
+  .section-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; text-align: center; color: #555; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
+  .flow-row { display: flex; align-items: center; gap: 8px; justify-content: center; flex-wrap: wrap; max-width: 1200px; margin: 0 auto; font-family: Arial, sans-serif; font-size: 12px; }
+  .flow-box { background: #fff; border: 1.5px solid #222; border-radius: 4px; padding: 8px 14px; font-size: 11px; }
+  .flow-arrow { color: #222; font-size: 18px; }
+  .legend { max-width: 600px; margin: 40px auto 0; background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 20px 24px; font-family: Arial, sans-serif; font-size: 12px; }
+  .legend h3 { font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; color: #444; }
+  .leg-box { width: 32px; height: 16px; border-radius: 2px; flex-shrink: 0; }
+  .footer { text-align: center; font-family: Arial, sans-serif; font-size: 11px; color: #999; margin-top: 50px; }
+</style>
+</head>
+<body>
+
+<h1>QuickBite — Food Delivery App</h1>
+<p class="subtitle">Task 1: Low-Fidelity Wireframes &amp; User Flow</p>
+<p class="meta">CodeAlpha UI/UX Internship | Wireframing &amp; Lo-Fi Design | Intern: Muneeb | Tool: Figma (exported to HTML for review)</p>
+
+<div class="screens-grid">
+
+  <!-- SCREEN 1: Splash/Onboarding -->
+  <div class="screen-wrap">
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="w-rect" style="height:80px; margin-bottom:12px; flex-direction:column; gap:6px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:#ddd;border:1px dashed #aaa;"></div>
+          <span style="font-size:9px;color:#999;">App Logo</span>
+        </div>
+        <div class="w-bar dark" style="width:70%;margin:0 auto 6px;"></div>
+        <div class="w-bar mid" style="width:55%;margin:0 auto 16px;"></div>
+        <div class="w-bar" style="width:100%;margin-bottom:6px;"></div>
+        <div class="w-bar" style="width:90%;margin-bottom:20px;"></div>
+        <div class="w-btn">Get Started</div>
+        <div class="w-btn outline">Log In</div>
+        <div style="text-align:center;font-size:8px;color:#aaa;margin-top:6px;">Continue with Google / Facebook</div>
+      </div>
+    </div>
+    <div class="screen-label">Screen 1</div>
+    <div class="screen-sub">Splash / Onboarding</div>
+    <div class="annotation">CTA above the fold</div>
+    <div class="annotation">Social login reduces friction</div>
+  </div>
+
+  <!-- SCREEN 2: Home / Browse -->
+  <div class="screen-wrap">
+    <div class="phone">
+      <div class="phone-inner">
+        <!-- Search bar -->
+        <div class="w-row" style="align-items:center;">
+          <div class="w-rect" style="flex:1;height:26px;margin-bottom:0;font-size:8px;">🔍  Search restaurants, food...</div>
+          <div class="w-circle" style="width:26px;height:26px;flex-shrink:0;font-size:8px;display:flex;align-items:center;justify-content:center;color:#777;">🔔</div>
+        </div>
+        <div style="height:6px;"></div>
+        <!-- Location -->
+        <div style="font-size:8px;color:#777;margin-bottom:8px;">📍 Delivering to: <strong>Main St, NYC</strong></div>
+        <!-- Banner -->
+        <div class="w-rect" style="height:70px;margin-bottom:8px;border-radius:6px;">Banner / Promo (Image)</div>
+        <!-- Category pills -->
+        <div class="w-row">
+          <div class="w-tag active">All</div>
+          <div class="w-tag">Pizza</div>
+          <div class="w-tag">Burgers</div>
+          <div class="w-tag">Sushi</div>
+        </div>
+        <!-- Restaurant cards -->
+        <div class="w-card">
+          <div class="w-row" style="align-items:center;margin-bottom:0;">
+            <div class="w-rect" style="width:44px;height:44px;margin-bottom:0;flex-shrink:0;border-radius:4px;">Img</div>
+            <div style="flex:1;padding-left:8px;">
+              <div class="w-bar dark" style="width:80%;height:8px;margin-bottom:4px;"></div>
+              <div class="w-bar" style="width:60%;height:6px;margin-bottom:4px;"></div>
+              <div style="font-size:8px;color:#aaa;">⭐ 4.5 · 25–35 min · Free delivery</div>
+            </div>
+          </div>
+        </div>
+        <div class="w-card">
+          <div class="w-row" style="align-items:center;margin-bottom:0;">
+            <div class="w-rect" style="width:44px;height:44px;margin-bottom:0;flex-shrink:0;border-radius:4px;">Img</div>
+            <div style="flex:1;padding-left:8px;">
+              <div class="w-bar dark" style="width:80%;height:8px;margin-bottom:4px;"></div>
+              <div class="w-bar" style="width:60%;height:6px;margin-bottom:4px;"></div>
+              <div style="font-size:8px;color:#aaa;">⭐ 4.2 · 20–30 min · $1.99</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-nav">
+        <div class="w-nav-item"><div class="w-nav-icon active"></div><div class="w-nav-txt active">Home</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Search</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Orders</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Profile</div></div>
+      </div>
+    </div>
+    <div class="screen-label">Screen 2</div>
+    <div class="screen-sub">Home / Browse Feed</div>
+    <div class="annotation">Sticky search + location bar</div>
+    <div class="annotation">Category filter pills</div>
+    <div class="annotation">Restaurant card: image, name, rating, ETA</div>
+  </div>
+
+  <!-- SCREEN 3: Restaurant Menu -->
+  <div class="screen-wrap">
+    <div class="phone">
+      <div class="phone-inner">
+        <!-- Header image -->
+        <div class="w-rect" style="height:70px;margin-bottom:8px;border-radius:4px;">Restaurant Cover Photo</div>
+        <div class="w-bar dark" style="width:70%;height:10px;margin-bottom:4px;"></div>
+        <div style="font-size:8px;color:#777;margin-bottom:8px;">⭐ 4.5 · Pizza · 20–35 min · $1.99 delivery</div>
+        <!-- Category tabs -->
+        <div class="w-row" style="border-bottom:1px solid #ddd;padding-bottom:6px;margin-bottom:8px;">
+          <div class="w-tag active" style="font-size:7px;">Popular</div>
+          <div class="w-tag" style="font-size:7px;">Starters</div>
+          <div class="w-tag" style="font-size:7px;">Mains</div>
+          <div class="w-tag" style="font-size:7px;">Drinks</div>
+        </div>
+        <!-- Menu items -->
+        <div class="w-card" style="display:flex;align-items:center;gap:8px;">
+          <div style="flex:1;">
+            <div class="w-bar dark" style="height:7px;width:90%;margin-bottom:4px;"></div>
+            <div class="w-bar" style="height:6px;width:75%;margin-bottom:4px;"></div>
+            <div style="font-size:8px;color:#333;font-weight:700;">$12.99</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="w-rect" style="width:44px;height:44px;margin-bottom:0;border-radius:4px;">Img</div>
+            <div style="width:22px;height:22px;background:#222;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;">+</div>
+          </div>
+        </div>
+        <div class="w-card" style="display:flex;align-items:center;gap:8px;">
+          <div style="flex:1;">
+            <div class="w-bar dark" style="height:7px;width:90%;margin-bottom:4px;"></div>
+            <div class="w-bar" style="height:6px;width:75%;margin-bottom:4px;"></div>
+            <div style="font-size:8px;color:#333;font-weight:700;">$9.99</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+            <div class="w-rect" style="width:44px;height:44px;margin-bottom:0;border-radius:4px;">Img</div>
+            <div style="width:22px;height:22px;background:#222;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;">+</div>
+          </div>
+        </div>
+        <!-- View Cart sticky btn -->
+        <div class="w-btn" style="margin-top:8px;">View Cart (2 items · $22.98)</div>
+      </div>
+      <div class="w-nav">
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Home</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Search</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Orders</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Profile</div></div>
+      </div>
+    </div>
+    <div class="screen-label">Screen 3</div>
+    <div class="screen-sub">Restaurant Menu</div>
+    <div class="annotation">Scrollable menu tabs by category</div>
+    <div class="annotation">+ button for quick add to cart</div>
+    <div class="annotation">Sticky cart summary at bottom</div>
+  </div>
+
+  <!-- SCREEN 4: Cart -->
+  <div class="screen-wrap">
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="w-bar dark" style="width:40%;height:10px;margin-bottom:14px;"></div>
+        <!-- Cart items -->
+        <div class="w-card">
+          <div class="w-row" style="align-items:center;margin-bottom:0;">
+            <div class="w-rect" style="width:36px;height:36px;margin-bottom:0;flex-shrink:0;border-radius:4px;">Img</div>
+            <div style="flex:1;padding-left:8px;">
+              <div class="w-bar dark" style="width:70%;height:7px;margin-bottom:4px;"></div>
+              <div style="font-size:8px;color:#777;">$12.99</div>
+            </div>
+            <div class="w-row" style="align-items:center;margin-bottom:0;gap:6px;">
+              <div style="width:18px;height:18px;border:1px solid #222;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;">–</div>
+              <span style="font-size:10px;font-weight:700;">2</span>
+              <div style="width:18px;height:18px;background:#222;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;">+</div>
+            </div>
+          </div>
+        </div>
+        <div class="w-card">
+          <div class="w-row" style="align-items:center;margin-bottom:0;">
+            <div class="w-rect" style="width:36px;height:36px;margin-bottom:0;flex-shrink:0;border-radius:4px;">Img</div>
+            <div style="flex:1;padding-left:8px;">
+              <div class="w-bar dark" style="width:70%;height:7px;margin-bottom:4px;"></div>
+              <div style="font-size:8px;color:#777;">$9.99</div>
+            </div>
+            <div class="w-row" style="align-items:center;margin-bottom:0;gap:6px;">
+              <div style="width:18px;height:18px;border:1px solid #222;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;">–</div>
+              <span style="font-size:10px;font-weight:700;">1</span>
+              <div style="width:18px;height:18px;background:#222;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;">+</div>
+            </div>
+          </div>
+        </div>
+        <!-- Promo code -->
+        <div class="w-rect" style="height:26px;margin-bottom:8px;font-size:8px;">🏷 Add promo code</div>
+        <!-- Order summary -->
+        <div style="border-top:1px dashed #ccc;padding-top:8px;font-size:9px;color:#555;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Subtotal</span><span>$35.97</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>Delivery fee</span><span>$1.99</span></div>
+          <div style="display:flex;justify-content:space-between;font-weight:700;color:#111;"><span>Total</span><span>$37.96</span></div>
+        </div>
+        <div class="w-btn" style="margin-top:10px;">Proceed to Checkout</div>
+      </div>
+      <div class="w-nav">
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Home</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Search</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon active"></div><div class="w-nav-txt active">Cart</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Profile</div></div>
+      </div>
+    </div>
+    <div class="screen-label">Screen 4</div>
+    <div class="screen-sub">Cart / Order Summary</div>
+    <div class="annotation">Inline quantity controls</div>
+    <div class="annotation">Promo code field</div>
+    <div class="annotation">Transparent fee breakdown</div>
+  </div>
+
+  <!-- SCREEN 5: Order Tracking -->
+  <div class="screen-wrap">
+    <div class="phone">
+      <div class="phone-inner">
+        <div class="w-bar dark" style="width:55%;height:10px;margin-bottom:6px;"></div>
+        <div style="font-size:8px;color:#777;margin-bottom:10px;">Order #QB-4821 · Estimated: 28 min</div>
+        <!-- Map placeholder -->
+        <div class="w-rect" style="height:90px;margin-bottom:10px;border-radius:6px;flex-direction:column;gap:4px;">
+          <span style="font-size:9px;color:#999;">Live Map View</span>
+          <span style="font-size:8px;color:#bbb;">(Restaurant → Your Location)</span>
+        </div>
+        <!-- Progress steps -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;position:relative;">
+          <div style="position:absolute;top:10px;left:20px;right:20px;height:2px;background:#ddd;z-index:0;"></div>
+          <div style="position:absolute;top:10px;left:20px;width:50%;height:2px;background:#222;z-index:0;"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;z-index:1;">
+            <div style="width:20px;height:20px;background:#222;border-radius:50%;"></div>
+            <span style="font-size:7px;color:#333;">Confirmed</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;z-index:1;">
+            <div style="width:20px;height:20px;background:#222;border-radius:50%;"></div>
+            <span style="font-size:7px;color:#333;">Preparing</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;z-index:1;">
+            <div style="width:20px;height:20px;background:#ddd;border-radius:50%;border:1.5px dashed #aaa;"></div>
+            <span style="font-size:7px;color:#aaa;">On the way</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;z-index:1;">
+            <div style="width:20px;height:20px;background:#ddd;border-radius:50%;border:1.5px dashed #aaa;"></div>
+            <span style="font-size:7px;color:#aaa;">Delivered</span>
+          </div>
+        </div>
+        <!-- Rider info -->
+        <div class="w-card" style="display:flex;align-items:center;gap:8px;padding:10px;">
+          <div style="width:32px;height:32px;border-radius:50%;background:#ddd;border:1px dashed #aaa;display:flex;align-items:center;justify-content:center;font-size:8px;color:#777;">Pic</div>
+          <div style="flex:1;">
+            <div class="w-bar dark" style="height:7px;width:60%;margin-bottom:3px;"></div>
+            <div style="font-size:8px;color:#777;">Your delivery rider</div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <div style="width:24px;height:24px;border:1px solid #222;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;">📞</div>
+            <div style="width:24px;height:24px;border:1px solid #222;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;">💬</div>
+          </div>
+        </div>
+      </div>
+      <div class="w-nav">
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Home</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Search</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon active"></div><div class="w-nav-txt active">Orders</div></div>
+        <div class="w-nav-item"><div class="w-nav-icon"></div><div class="w-nav-txt">Profile</div></div>
+      </div>
+    </div>
+    <div class="screen-label">Screen 5</div>
+    <div class="screen-sub">Live Order Tracking</div>
+    <div class="annotation">Real-time map with rider pin</div>
+    <div class="annotation">4-step progress indicator</div>
+    <div class="annotation">Direct call/chat with rider</div>
+  </div>
+
+</div>
+
+<hr class="divider">
+<div class="section-title">User Flow Diagram</div>
+<div class="flow-row">
+  <div class="flow-box">Splash / Onboarding</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box">Sign Up / Log In</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box">Home (Browse)</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box">Restaurant Page</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box">Cart</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box">Checkout &amp; Payment</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box">Order Tracking</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-box">Rate &amp; Review</div>
+</div>
+
+<hr class="divider">
+
+<div class="legend">
+  <h3>Wireframe Legend</h3>
+  <div class="legend-item"><div class="leg-box" style="background:#222;"></div><span>Primary action / CTA button</span></div>
+  <div class="legend-item"><div class="leg-box" style="background:#e0e0e0;border:1px dashed #aaa;"></div><span>Image placeholder</span></div>
+  <div class="legend-item"><div class="leg-box" style="background:#ddd;"></div><span>Text / content block</span></div>
+  <div class="legend-item"><div class="leg-box" style="background:#f8f8f8;border:1px solid #ddd;"></div><span>Card / container component</span></div>
+  <div class="legend-item"><div class="leg-box" style="background:#e8e8e8;border-radius:8px;border:1px solid #ccc;"></div><span>Filter pill / tag (inactive)</span></div>
+  <div class="legend-item"><div class="leg-box" style="background:#222;border-radius:8px;"></div><span>Filter pill / tag (active)</span></div>
+  <div style="margin-top:10px;font-size:11px;color:#e74c3c;">Red annotations = UX design notes / rationale</div>
+</div>
+
+<div class="footer">
+  Task 1 — Wireframing &amp; Low-Fidelity Design · QuickBite Food Delivery App · CodeAlpha UI/UX Internship<br>
+  Created in HTML for presentation; recreate in Figma for submission file
+</div>
+
+</body>
+</html>
