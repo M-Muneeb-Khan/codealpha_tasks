@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # CodeAlpha Internship Tasks
 
 ## ML Tasks
